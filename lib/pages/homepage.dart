@@ -7,7 +7,6 @@ import 'package:something/pages/widgets/info_snackbar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:something/static.dart' as Static;
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -94,6 +93,7 @@ class _HomePageState extends State<HomePage> {
     // Sorting the list as per the date
     //(after sorting) i need to find someway to add expenses of same dates together and remove other duplicates.
     tempdataSet.sort((a, b) => a.date.day.compareTo(b.date.day));
+    date_count = 0;
     for (var i = 0; i < tempdataSet.length; i++) {
       if (i == 0) date_count = 0;
       if (tempdataSet[i].date.day != tempdataSet[0].date.day) date_count++;
@@ -301,6 +301,81 @@ class _HomePageState extends State<HomePage> {
                 selectMonth(),
                 //
 
+                // Container(
+                //   width: MediaQuery.of(context).size.width * 0.9,
+                //   margin: EdgeInsets.all(
+                //     12.0,
+                //   ),
+                //   child: Ink(
+                //     decoration: BoxDecoration(
+                //       color: Static.PrimaryMaterialColor,
+                //       borderRadius: BorderRadius.all(
+                //         Radius.circular(
+                //           24.0,
+                //         ),
+                //       ),
+                //     ),
+                //     child: Container(
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.all(
+                //           Radius.circular(
+                //             24.0,
+                //           ),
+                //         ),
+                //         // color: Static.PrimaryColor,
+                //       ),
+                //       alignment: Alignment.center,
+                //       padding: EdgeInsets.symmetric(
+                //         vertical: 18.0,
+                //         horizontal: 8.0,
+                //       ),
+                //       child: Column(
+                //         children: [
+                //           Text(
+                //             'Total Balance',
+                //             textAlign: TextAlign.center,
+                //             style: TextStyle(
+                //               fontSize: 22.0,
+                //               // fontWeight: FontWeight.w700,
+                //               color: Colors.white,
+                //             ),
+                //           ),
+                //           SizedBox(
+                //             height: 12.0,
+                //           ),
+                //           Text(
+                //             'BDT $totalBalance',
+                //             textAlign: TextAlign.center,
+                //             style: TextStyle(
+                //               fontSize: 36.0,
+                //               fontWeight: FontWeight.w700,
+                //               color: Colors.white,
+                //             ),
+                //           ),
+                //           SizedBox(
+                //             height: 12.0,
+                //           ),
+                //           Padding(
+                //             padding: const EdgeInsets.all(12.0),
+                //             child: Row(
+                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //               children: [
+                //                 cardIncome(
+                //                   totalIncome.toString(),
+                //                 ),
+                //                 cardExpense(
+                //                   totalExpense.toString(),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                //
+
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
                   margin: EdgeInsets.all(
@@ -331,29 +406,40 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: Column(
                         children: [
-                          Text(
-                            'Total Balance',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 22.0,
-                              // fontWeight: FontWeight.w700,
-                              color: Colors.white,
+                          CircleAvatar(
+                            backgroundColor: Color.fromARGB(255, 216, 215, 215),
+                            radius: MediaQuery.of(context).size.width / 3.8,
+                            child: CircleAvatar(
+                              backgroundColor: Static.PrimaryColor,
+                              radius:
+                                  MediaQuery.of(context).size.width / 3.8 - 10,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Total Balance',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 22.0,
+                                      // fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 12.0,
+                                  ),
+                                  Text(
+                                    'BDT $totalBalance',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 22.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 12.0,
-                          ),
-                          Text(
-                            'BDT $totalBalance',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 36.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 12.0,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(12.0),
@@ -374,7 +460,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                //
+
                 Padding(
                   padding: const EdgeInsets.all(
                     12.0,
