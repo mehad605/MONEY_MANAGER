@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:something/controllers/db_helper.dart';
 import 'package:something/pages/add_transaction.dart';
 import 'package:something/pages/models/transaction.dart';
@@ -82,7 +84,7 @@ class _HomePageState extends State<HomePage> {
 
   List<FlSpot> getPlotPoints(List<TransactionModel> entireData) {
     dataSet = [];
-    List tempdataSet = [];
+    List<TransactionModel> tempdataSet = [];
     // List tempdataSet2 = [];
 
     for (TransactionModel item in entireData) {
@@ -98,55 +100,73 @@ class _HomePageState extends State<HomePage> {
       if (i == 0) date_count = 0;
       if (tempdataSet[i].date.day != tempdataSet[0].date.day) date_count++;
     }
+
     num d = 0;
     DateTime x = today;
-    if (tempdataSet.length == 1) {
-    } else {
-      for (var i = 0; i < tempdataSet.length; i++) {
-        if (i == 0) x = tempdataSet[i].date;
-        // //make changes here otherwise face the rath of shallow copy
-        // //make a variable to store the total expense of a day and then go down and instead of temp...amount write the variable
-        if (tempdataSet[i].date == x) {
-          d += tempdataSet[i].amount;
-          // if (i == (tempdataSet.length - 1)) {
-          //   dataSet.add(
-          //     FlSpot(
-          //       // x.day.toDouble(),
-          //       tempdataSet[i].date.day.toDouble(),
-          //       //tempdataSet[i].amount.toDouble(),
-          //       d.toDouble(),
-          //     ),
-          //   );
-          //   return dataSet;
-          // }
-        }
-        if (tempdataSet[i].date != x && i == (tempdataSet.length - 1)) {
-          dataSet.add(
-            FlSpot(
-              tempdataSet[i - 1].date.day.toDouble(),
-              d.toDouble(),
-            ),
-          );
-          dataSet.add(
-            FlSpot(
-              tempdataSet[i].date.day.toDouble(),
-              tempdataSet[i].amount.toDouble(),
-            ),
-          );
-        }
 
-        if (tempdataSet[i].date != x || i == (tempdataSet.length - 1)) {
-          dataSet.add(
-            FlSpot(
-              tempdataSet[i - 1].date.day.toDouble(),
-              d.toDouble(),
-            ),
-          );
-          x = tempdataSet[i].date;
-          d = tempdataSet[i].amount;
-        }
-      }
+    Map<int, double> chartData = Map();
+    for (var element in tempdataSet) {
+      num amount = 0;
+      int day = 0;
+      amount = element.amount;
+      day = element.date.day;
+      chartData.update(
+        day,
+        (value) => value + amount.toDouble(),
+        ifAbsent: () => amount.toDouble(),
+      );
     }
+    chartData.forEach((key, value) {
+      dataSet.add(FlSpot(key.toDouble(), value.toDouble()));
+    });
+
+    // if (tempdataSet.length == 1) {
+    // } else {
+    //   for (var i = 0; i < tempdataSet.length; i++) {
+    //     if (i == 0) x = tempdataSet[i].date;
+    //     // //make changes here otherwise face the rath of shallow copy
+    //     // //make a variable to store the total expense of a day and then go down and instead of temp...amount write the variable
+    //     if (tempdataSet[i].date == x) {
+    //       d += tempdataSet[i].amount;
+    //       // if (i == (tempdataSet.length - 1)) {
+    //       //   dataSet.add(
+    //       //     FlSpot(
+    //       //       // x.day.toDouble(),
+    //       //       tempdataSet[i].date.day.toDouble(),
+    //       //       //tempdataSet[i].amount.toDouble(),
+    //       //       d.toDouble(),
+    //       //     ),
+    //       //   );
+    //       //   return dataSet;
+    //       // }
+    //     }
+    //     if (tempdataSet[i].date != x && i == (tempdataSet.length - 1)) {
+    //       dataSet.add(
+    //         FlSpot(
+    //           tempdataSet[i - 1].date.day.toDouble(),
+    //           d.toDouble(),
+    //         ),
+    //       );
+    //       dataSet.add(
+    //         FlSpot(
+    //           tempdataSet[i].date.day.toDouble(),
+    //           tempdataSet[i].amount.toDouble(),
+    //         ),
+    //       );
+    //     }
+
+    //     if (tempdataSet[i].date != x || i == (tempdataSet.length - 1)) {
+    //       dataSet.add(
+    //         FlSpot(
+    //           tempdataSet[i - 1].date.day.toDouble(),
+    //           d.toDouble(),
+    //         ),
+    //       );
+    //       x = tempdataSet[i].date;
+    //       d = tempdataSet[i].amount;
+    //     }
+    //   }
+    // }
     return dataSet;
   }
 
@@ -475,7 +495,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 //
-                Text("$date_count"),
+                // Text("$date_count"),
                 // dataSet.isEmpty || dataSet.length < 2
 
                 date_count < 1
