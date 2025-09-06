@@ -1,5 +1,5 @@
-import 'package:something/controllers/db_helper.dart';
-import 'package:something/pages/widgets/confirm_dialog.dart';
+import 'package:MONEY_MANAGER/controllers/db_helper.dart';
+import 'package:MONEY_MANAGER/pages/widgets/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {
@@ -18,6 +18,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //returns a scaffold that contains everything of scaffold page
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text(
@@ -25,12 +26,14 @@ class _SettingsState extends State<Settings> {
         ),
       ),
       body: ListView(
+        //shows the options in a list
         padding: EdgeInsets.all(
           12.0,
         ),
         children: [
           ListTile(
             onTap: () async {
+              //warning message to confirm that user actually intends to do clear data
               bool answer = await showConfirmDialog(context, "Warning",
                   "This is irreversible. Your entire data will be Lost");
               if (answer) {
@@ -56,7 +59,7 @@ class _SettingsState extends State<Settings> {
               ),
             ),
             subtitle: Text(
-              "This is irreversible",
+              "This is irreversible", //hint text below clear data
             ),
             trailing: Icon(
               Icons.delete_forever,
@@ -70,6 +73,7 @@ class _SettingsState extends State<Settings> {
           ),
           //
           ListTile(
+            //shows dialog box after change new name has been clicked
             onTap: () async {
               String nameEditing = "";
               String? name = await showDialog(
@@ -123,6 +127,8 @@ class _SettingsState extends State<Settings> {
                 Navigator.of(context).pop(); //ok takes to home page
               }
             },
+
+            //shows the option that allows to change name
             tileColor: Colors.white,
             contentPadding: EdgeInsets.symmetric(
               vertical: 12.0,

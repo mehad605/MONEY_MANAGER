@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//used for theming purposes
 const Color PrimaryColor = Color(0xff41b5fe);
 
 const MaterialColor PrimaryMaterialColor = MaterialColor(

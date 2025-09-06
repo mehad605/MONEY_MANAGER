@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:something/static.dart' as Static;
+import 'package:MONEY_MANAGER/static.dart' as Static;
 
+//on press gives user information on what will happen on long press
 SnackBar deleteInfoSnackBar = SnackBar(
   backgroundColor: Static.PrimaryMaterialColor,
   duration: Duration(

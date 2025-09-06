@@ -1,7 +1,7 @@
 //  will ask use for their name here
 
-import 'package:something/controllers/db_helper.dart';
-import 'package:something/pages/homepage.dart';
+import 'package:MONEY_MANAGER/controllers/db_helper.dart';
+import 'package:MONEY_MANAGER/pages/homepage.dart';
 
 import 'package:flutter/material.dart';
 

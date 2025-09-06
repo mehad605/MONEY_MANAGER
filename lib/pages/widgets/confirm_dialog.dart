@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// a confirm box to show that is user is sure to go through with deletion process
 showConfirmDialog(BuildContext context, String title, String content) async {
   return await showDialog(
     context: context,

@@ -1,12 +1,13 @@
-import 'package:something/pages/add_name.dart';
-import 'package:something/pages/splash.dart';
-import 'package:something/static.dart';
+import 'package:MONEY_MANAGER/pages/add_name.dart';
+import 'package:MONEY_MANAGER/pages/splash.dart';
+import 'package:MONEY_MANAGER/static.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:something/theme.dart';
+import 'package:MONEY_MANAGER/theme.dart';
 
+//the main portion of the app
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox('money');
@@ -20,9 +21,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Something money manager',
+      title: 'MONEY_MANAGER money manager',
       theme: myTheme,
-      home: const Splash(),
+      home:
+          const Splash(), //on launch directs to splash screen if it is the first time else directs to homepage a function in splash.dart
     );
   }
 }

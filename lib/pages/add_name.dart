@@ -1,7 +1,7 @@
 //  will ask use for their name here
 
-import 'package:something/controllers/db_helper.dart';
-import 'package:something/pages/homepage.dart';
+import 'package:MONEY_MANAGER/controllers/db_helper.dart';
+import 'package:MONEY_MANAGER/pages/homepage.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,21 +14,18 @@ class AddName extends StatefulWidget {
 
 class _AddNameState extends State<AddName> {
   //
-  DbHelper dbHelper = DbHelper();
+  DbHelper dbHelper =
+      DbHelper(); //used so that functions defined in the db_helper.dart file may be used.
 
   String name = "";
 
-  //
   @override
   Widget build(BuildContext context) {
+    //shows the questions and the default icons of the splash screen
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0.0,
       ),
-
-      //
-      // backgroundColor: Color(0xffe2e7ef),
-      //
       body: Padding(
         padding: const EdgeInsets.all(
           12.0,
@@ -38,6 +35,7 @@ class _AddNameState extends State<AddName> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              //shows the icon on splash screen
               decoration: BoxDecoration(
                 color: Colors.white70,
                 borderRadius: BorderRadius.circular(
@@ -72,6 +70,7 @@ class _AddNameState extends State<AddName> {
             ),
             //
             Container(
+              //the box where the user gives input
               decoration: BoxDecoration(
                 color: Colors.white70,
                 borderRadius: BorderRadius.circular(
