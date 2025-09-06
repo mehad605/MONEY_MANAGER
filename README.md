@@ -67,11 +67,11 @@ To get a local copy up and running, follow these simple steps.
 
 1.  Clone the repository to your local machine:
     ```sh
-    git clone [https://github.com/your_username/your_repository.git](https://github.com/your_username/your_repository.git)
+    git clone https://github.com/mehad605/MONEY_MANAGER
     ```
 2.  Navigate into the project directory:
     ```sh
-    cd your_repository
+    cd MONEY_MANAGER
     ```
 3.  Install the required dependencies:
     ```sh
